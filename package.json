@@ -30,12 +30,8 @@
     "autoprefixer": "^9.1.5",
     "babel-loader": "^8.0.4",
     "cssnano": "^4.1.4",
-    "gulp": "^3.9.1",
-    "gulp-header": "^2.0.5",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-stylus": "^2.7.0",
+    "gulp": "4.0.0",
+    "gulp-cli": "2.0.1",
     "postcss": "^7.0.5",
     "postcss-pxtorem": "^4.0.1",
     "rollup": "^0.66.6",
@@ -44,5 +40,13 @@
     "stylus": "^0.54.5",
     "uglify-js": "^3.4.9",
     "zlib": "^1.0.5"
+  },
+  "dependencies": {
+    "graceful-fs": "^4.2.3",
+    "gulp-header": "^2.0.9",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-stylus": "^2.7.0"
   }
 }

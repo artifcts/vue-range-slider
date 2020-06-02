@@ -189,4 +189,4 @@ gulp.task('css', () => {
     })
 })
 
-gulp.task('default', ['js', 'css'])
+gulp.task('default', gulp.series('js', 'css'))

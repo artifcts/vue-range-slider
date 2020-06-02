@@ -3,6 +3,7 @@
 This is a fork [of this module](https://github.com/xwpongithub/vue-range-slider) with
 bugfixes and updates. As well as CI integration with Travis-CI.
 
+
 # vue-range-slider
 A range slider component based on vue (Vue滑块组件).
 
