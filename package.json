@@ -1,6 +1,6 @@
 {
   "name": "vue-range-component-ng",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A range slider component based on Vue.",
   "main": "dist/vue-range-slider.js",
   "module": "dist/vue-range-slider.esm.js",
