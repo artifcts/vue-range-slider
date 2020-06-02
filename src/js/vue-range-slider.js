@@ -1050,11 +1050,11 @@ export default {
       this.focusFlag = false
     },
     handleKeydown(e) {
-      e.preventDefault()
-      e.stopPropagation()
       if (!this.useKeyboard) {
         return false
       }
+      e.preventDefault()
+      e.stopPropagation()
       const keyCode = e.which || e.keyCode
       switch (keyCode) {
         case 37:
