@@ -5,6 +5,11 @@ bugfixes and updates. As well as CI integration with Travis-CI.
 
 Latest build result: [![build result](https://api.travis-ci.org/wsdookadr/vue-range-slider.svg)](https://api.travis-ci.org/wsdookadr/vue-range-slider.svg)
 
+
+# Bugfixes:
+- https://github.com/xwpongithub/vue-range-slider/issues/11
+- https://github.com/xwpongithub/vue-range-slider/issues/13
+
 # vue-range-slider
 A range slider component based on vue (Vue滑块组件).
 
