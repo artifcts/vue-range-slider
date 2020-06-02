@@ -14,8 +14,6 @@ const EVENT_MOUSE_MOVE = 'mousemove'
 const EVENT_MOUSE_UP = 'mouseup'
 const EVENT_MOUSE_LEAVE = 'mouseleave'
 
-const EVENT_KEY_DOWN = 'keydown'
-const EVENT_KEY_UP = 'keyup'
 const EVENT_RESIZE = 'resize'
 
 export default {
@@ -169,16 +167,6 @@ export default {
       type: Number,
       default: 0.5
     },
-    useKeyboard: {
-      type: Boolean,
-      default: false
-    },
-    actionsKeyboard: {
-      type: Array,
-      default() {
-        return [(i) => i - 1, (i) => i + 1]
-      }
-    },
     data: Array,
     formatter: [String, Function],
     mergeFormatter: [String, Function],
@@ -212,7 +200,6 @@ export default {
       flag: false,
       processFlag: false,
       processSign: false,
-      keydownFlag: false,
       focusFlag: false,
       dragFlag: false,
       crossFlag: false,
@@ -642,7 +629,7 @@ export default {
     stateClass() {
       return {
         'slider-state-process-drag': this.processFlag,
-        'slider-state-drag': this.flag && !this.processFlag && !this.keydownFlag,
+        'slider-state-drag': this.flag && !this.processFlag,
         'slider-state-focus': this.focusFlag
       }
     },
@@ -770,7 +757,6 @@ export default {
     syncValue(noCb) {
       let val = this.isRange ? this.val.concat() : this.val
       this.$emit('input', val)
-      this.keydownFlag && this.$emit('on-keypress', val)
       noCb || this.$emit('slide-end', val)
     },
     getPos(e) {
@@ -995,7 +981,7 @@ export default {
           this.crossFlag = true
         }
       }
-      if (!isProcess && this.useKeyboard) {
+      if (!isProcess) {
         this.focusFlag = true
         this.focusSlider = index
       }
@@ -1048,36 +1034,6 @@ export default {
         return false
       }
       this.focusFlag = false
-    },
-    handleKeydown(e) {
-      if (!this.useKeyboard) {
-        return false
-      }
-      e.preventDefault()
-      e.stopPropagation()
-      const keyCode = e.which || e.keyCode
-      switch (keyCode) {
-        case 37:
-        case 40:
-          this.keydownFlag = true
-          this.flag = true
-          this.changeFocusSlider(this.actionsKeyboard[0])
-          break
-        case 38:
-        case 39:
-          this.keydownFlag = true
-          this.flag = true
-          this.changeFocusSlider(this.actionsKeyboard[1])
-          break
-        default:
-          break
-      }
-    },
-    handleKeyup() {
-      if (this.keydownFlag) {
-        this.keydownFlag = false
-        this.flag = false
-      }
     },
     changeFocusSlider(fn) {
       if (this.isRange) {
@@ -1139,8 +1095,6 @@ export default {
           addEvent(this.$refs.dot, EVENT_MOUSE_DOWN, this._start)
         }
       }
-      addEvent(document, EVENT_KEY_DOWN, this.handleKeydown)
-      addEvent(document, EVENT_KEY_UP, this.handleKeyup)
       addEvent(window, EVENT_RESIZE, this.refresh)
       if (this.isRange && this.tooltipMerge) {
         addEvent(this.$refs.dot0, transitionEnd, this.handleOverlapTooltip)
@@ -1174,8 +1128,6 @@ export default {
           removeEvent(this.$refs.dot, EVENT_MOUSE_DOWN, this._start)
         }
       }
-      removeEvent(document, EVENT_KEY_DOWN, this.handleKeydown)
-      removeEvent(document, EVENT_KEY_UP, this.handleKeyup)
       removeEvent(window, EVENT_RESIZE, this.refresh)
       if (this.isRange && this.tooltipMerge) {
         removeEvent(this.$refs.dot0, transitionEnd, this.handleOverlapTooltip)

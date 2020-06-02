@@ -15,6 +15,7 @@ const zlib = require('zlib')
 const json = require('rollup-plugin-json')
 const header = require('gulp-header')
 const version = require('./package').version
+const jsValidate = require('gulp-jsvalidate')
 
 if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist')
@@ -189,4 +190,10 @@ gulp.task('css', () => {
     })
 })
 
-gulp.task('default', gulp.series('js', 'css'))
+gulp.task('validate', function(done) {
+    gulp.src('src/js/vue-range-slider.js').pipe(jsValidate())
+    done()
+})
+
+gulp.task('default', gulp.series('validate', 'js', 'css'))
+
