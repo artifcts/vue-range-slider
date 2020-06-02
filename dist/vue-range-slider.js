@@ -1,5 +1,5 @@
 /*!
- * vue-range-slider v1.0.4
+ * vue-range-slider v1.0.5
  * (c) 2016-2020 xwpongithub
  * Released under the MIT License.
  */
@@ -108,8 +108,6 @@
   var EVENT_MOUSE_MOVE = 'mousemove';
   var EVENT_MOUSE_UP = 'mouseup';
   var EVENT_MOUSE_LEAVE = 'mouseleave';
-  var EVENT_KEY_DOWN = 'keydown';
-  var EVENT_KEY_UP = 'keyup';
   var EVENT_RESIZE = 'resize';
   var Slider = {
     name: 'vue-range-slider',
@@ -262,20 +260,6 @@
         type: Number,
         "default": 0.5
       },
-      useKeyboard: {
-        type: Boolean,
-        "default": false
-      },
-      actionsKeyboard: {
-        type: Array,
-        "default": function _default() {
-          return [function (i) {
-            return i - 1;
-          }, function (i) {
-            return i + 1;
-          }];
-        }
-      },
       data: Array,
       formatter: [String, Function],
       mergeFormatter: [String, Function],
@@ -309,7 +293,6 @@
         flag: false,
         processFlag: false,
         processSign: false,
-        keydownFlag: false,
         focusFlag: false,
         dragFlag: false,
         crossFlag: false,
@@ -701,7 +684,7 @@
       stateClass: function stateClass() {
         return {
           'slider-state-process-drag': this.processFlag,
-          'slider-state-drag': this.flag && !this.processFlag && !this.keydownFlag,
+          'slider-state-drag': this.flag && !this.processFlag,
           'slider-state-focus': this.focusFlag
         };
       },
@@ -848,7 +831,6 @@
       syncValue: function syncValue(noCb) {
         var val = this.isRange ? this.val.concat() : this.val;
         this.$emit('input', val);
-        this.keydownFlag && this.$emit('on-keypress', val);
         noCb || this.$emit('slide-end', val);
       },
       getPos: function getPos(e) {
@@ -1113,7 +1095,7 @@
           }
         }
 
-        if (!isProcess && this.useKeyboard) {
+        if (!isProcess) {
           this.focusFlag = true;
           this.focusSlider = index;
         }
@@ -1178,41 +1160,6 @@
         }
 
         this.focusFlag = false;
-      },
-      handleKeydown: function handleKeydown(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (!this.useKeyboard) {
-          return false;
-        }
-
-        var keyCode = e.which || e.keyCode;
-
-        switch (keyCode) {
-          case 37:
-          case 40:
-            this.keydownFlag = true;
-            this.flag = true;
-            this.changeFocusSlider(this.actionsKeyboard[0]);
-            break;
-
-          case 38:
-          case 39:
-            this.keydownFlag = true;
-            this.flag = true;
-            this.changeFocusSlider(this.actionsKeyboard[1]);
-            break;
-
-          default:
-            break;
-        }
-      },
-      handleKeyup: function handleKeyup() {
-        if (this.keydownFlag) {
-          this.keydownFlag = false;
-          this.flag = false;
-        }
       },
       changeFocusSlider: function changeFocusSlider(fn) {
         var _this5 = this;
@@ -1283,8 +1230,6 @@
           }
         }
 
-        addEvent(document, EVENT_KEY_DOWN, this.handleKeydown);
-        addEvent(document, EVENT_KEY_UP, this.handleKeyup);
         addEvent(window, EVENT_RESIZE, this.refresh);
 
         if (this.isRange && this.tooltipMerge) {
@@ -1320,8 +1265,6 @@
           }
         }
 
-        removeEvent(document, EVENT_KEY_DOWN, this.handleKeydown);
-        removeEvent(document, EVENT_KEY_UP, this.handleKeyup);
         removeEvent(window, EVENT_RESIZE, this.refresh);
 
         if (this.isRange && this.tooltipMerge) {
@@ -1412,7 +1355,7 @@
     }
   };
 
-  var version = "1.0.4";
+  var version = "1.0.5";
 
   Slider.version = version;
 
