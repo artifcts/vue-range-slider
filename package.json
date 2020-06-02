@@ -1,24 +1,25 @@
 {
-  "name": "vue-range-component",
-  "version": "1.0.3",
-  "description": "A range slider component based on vue (Vue滑块组件).",
+  "name": "vue-range-component-ng",
+  "version": "1.0.4",
+  "description": "A range slider component based on Vue.",
   "main": "dist/vue-range-slider.js",
   "module": "dist/vue-range-slider.esm.js",
   "keywords": [
     "javascript",
     "rollup",
     "vuejs",
-    "stylus"
+    "stylus",
+    "slider"
   ],
-  "author": "xwpongithub",
+  "author": "wsdookadr",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xwpongithub/vue-range-slider/issues"
+    "url": "https://github.com/wsdookadr/vue-range-slider/issues"
   },
-  "homepage": "https://github.com/xwpongithub/vue-range-slider",
+  "homepage": "https://github.com/wsdookadr/vue-range-slider/issues",
   "repository": {
     "type": "git",
-    "url": "git@github.com:xwpongithub/vue-range-slider.git"
+    "url": "git@github.com:wsdookadr/vue-range-slider.git"
   },
   "scripts": {
     "build": "gulp"
