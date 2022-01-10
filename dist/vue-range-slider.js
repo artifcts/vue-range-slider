@@ -86,7 +86,7 @@
   }
   function addEvent(el, type, fn, capture) {
     el.addEventListener(type, fn, {
-      passive: false,
+      passive: true,
       capture: !!capture
     });
   }
@@ -179,7 +179,7 @@
         type: [String, Boolean],
         "default": 'always',
         validator: function validator(val) {
-          return ['hover', 'always'].indexOf(val) > -1;
+          return ['hover', 'always', false].indexOf(val) > -1;
         }
       },
       // 组件方向
